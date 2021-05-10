@@ -3,7 +3,7 @@
 #include <time.h>
 using namespace std;
 
-int totalcomida=50;
+int totalcomida=50,aux;
 int estado[10];
 
 struct tenedor{
@@ -14,7 +14,7 @@ struct filosofo {
   int name=1, energia, cantplato, t1, t2;
   struct tenedor ten1;
   struct tenedor ten2;
-  filosofo() : t1(name-1), t2(name+1), cantplato(10), energia(50){}
+  filosofo() : t1(name), t2((name+1)%aux), cantplato(6), energia(40){}
 };
 
 void mesa (filosofo &fil) {
@@ -53,12 +53,12 @@ void mesa (filosofo &fil) {
           } 
 
         }
-
         fil.ten1.libre = 0; fil.ten2.libre = 0;
         fil.cantplato = 6;
         totalcomida -= fil.cantplato;
         cout<< fil.name << "° filosofo dejo de comer" << endl;
         estado[fil.name] = 2;
+        int pensar = rand()%3+1;
 
       }
 
@@ -72,12 +72,13 @@ int main() {
   int numfilo;
   cout << "Ingrese cantidad de filosofos: ";
   cin >> numfilo;
+  aux = numfilo;
   filosofo filos[numfilo];
   thread cantmesa[numfilo];
   for(int i=0; i<numfilo; i++){
     srand(time(NULL));
-    filos[i].name=i+1;
-    cantmesa[i]=thread(mesa, ref(filos[i]));
+    filos[i].name=i;
+    cantmesa[i] = thread(mesa, ref(filos[i]));
   }
   
   for(int i=0; i<numfilo; i++){
