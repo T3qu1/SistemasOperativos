@@ -14,7 +14,7 @@ struct filosofo {
   int name=1, energia, cantplato, t1, t2;
   struct tenedor ten1;
   struct tenedor ten2;
-  filosofo() : t1(name-1), t2(name+1), cantplato(6), energia(40){}
+  filosofo() : t1(name-1), t2(name+1), cantplato(10), energia(50){}
 };
 
 void mesa (filosofo &fil) {
